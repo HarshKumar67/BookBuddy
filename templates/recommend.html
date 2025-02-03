@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Recommender System</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 🌟 Page Background */
+        body {
+            background: linear-gradient(135deg, #f8f1e4, #e3d5c0);
+            color: #3d3d3d;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* 📌 Navbar */
+        .navbar {
+            background: #3b3b58;
+            border-bottom: 2px solid #f4a261;
+            padding: 15px;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: bold;
+            color: #f4a261 !important;
+        }
+        .nav a {
+            color: #e9c46a !important;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav a:hover {
+            color: #f4a261 !important;
+            text-decoration: underline;
+        }
+
+        /* 🎀 Headings */
+        h1 {
+            font-size: 50px;
+            font-family: 'Merriweather', serif;
+            text-align: center;
+            color: #3b3b58;
+            margin-bottom: 20px;
+        }
+
+        /* 🔍 Search Bar */
+        .form-control {
+            width: 50%;
+            margin: 0 auto;
+            padding: 12px;
+            border-radius: 25px;
+            border: 2px solid #e76f51;
+            font-size: 18px;
+            transition: all 0.3s ease-in-out;
+        }
+        .form-control:focus {
+            border-color: #f4a261;
+            box-shadow: 0px 0px 10px rgba(244, 162, 97, 0.6);
+        }
+
+        /* 🎛 Buttons */
+        .btn-custom {
+            background: #f4a261;
+            color: white;
+            border-radius: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;
+            border: none;
+            display: block;
+            margin: 20px auto;
+        }
+        .btn-custom:hover {
+            background: #e76f51;
+            color: white;
+            box-shadow: 0px 0px 10px #e76f51;
+        }
+
+        /* 📚 Book Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+        .card img:hover {
+            transform: scale(1.05);
+        }
+
+        /* 📄 Text Styling */
+        .text-white {
+            color: #3b3b58;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .card h4 {
+            color: #e76f51;
+            font-weight: 700;
+        }
+
+        /* 📱 Responsive Design */
+        @media (max-width: 768px) {
+            .form-control {
+                width: 80%;
+            }
+            .card img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 📚 Navbar -->
+    <nav class="navbar">
+        <a class="navbar-brand">📖 My Book Recommender</a>
+        <ul class="nav navbar-nav">
+            <li><a href="/">🏠 Home</a></li>
+            <li><a href="/recommend">✨ Recommend</a></li>
+            <li><a href="#">📧 Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- 🌟 Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Recommend Books 📚</h1>
+                <form action="/recommend_books" method="post">
+                    <input name="user_input" type="text" class="form-control" placeholder="Enter book name..."><br>
+                    <input type="submit" class="btn btn-custom" value="Find Recommendations">
+                </form>
+            </div>
+
+            {% if data %}
+             {% for i in data %}
+                <div class="col-md-3" style="margin-top:30px">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="card-img-top" src="{{i[2]}}">
+                            <p class="text-white">{{i[0]}}</p>
+                            <h4>{{i[1]}}</h4>
+                        </div>
+                    </div>
+                </div>
+             {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+
+</body>
+</html>
